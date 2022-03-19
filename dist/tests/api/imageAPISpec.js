@@ -17,26 +17,30 @@ const index_1 = __importDefault(require("../../index"));
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
 const image_1 = __importDefault(require("../../models/image"));
+const sharp_1 = __importDefault(require("sharp"));
 const request = (0, supertest_1.default)(index_1.default);
 describe('Test the api image processing', () => {
-    const ImageName = 'fjord';
-    const width = 300;
-    const height = 300;
+    // test data
+    const image = new image_1.default('fjord', 300, 300);
+    // this to checkif processed image is already exits.
     let isImageExists = false;
     beforeAll(() => {
-        if (fs_1.default
-            .readdirSync(image_1.default.IMAGES_DESTINATION_FOLDER)
-            .includes(ImageName)) {
+        if (image.isImageInDest) {
             isImageExists = true;
         }
     });
-    it('gets api endpoint', () => __awaiter(void 0, void 0, void 0, function* () {
+    it('test api with bad request ', () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield request.get(`/api`);
+        expect(response.status).toBe(400);
+    }));
+    it('check the status code for image processing via api', () => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield request.get(`/api?fileName=${image.name}&width=${image.toWidth}&height=${image.toHeight}`);
         expect(response.status).toBe(200);
     }));
-    it('gets image endpoint', () => __awaiter(void 0, void 0, void 0, function* () {
-        const response = yield request.get(`/api?fileName=${ImageName}&width=${width}&height=${height}`);
-        expect(response.status).toBe(200);
+    it('check image processing via api', () => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield request.get(`/api?fileName=${image.name}&width=${image.toWidth}&height=${image.toHeight}`);
+        const imgInfo = yield (0, sharp_1.default)(response.body).metadata();
+        expect(imgInfo.width == image.toWidth && imgInfo.height == image.toHeight).toBeTruthy();
     }));
     afterAll(() => {
         if (!isImageExists) {

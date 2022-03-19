@@ -36,7 +36,7 @@ router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         }
         // if error happened form user , show the errors for him/her.
         else {
-            res.render('index', {
+            res.status(400).render('index', {
                 errors: errorList,
             });
         }

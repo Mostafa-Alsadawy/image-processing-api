@@ -29,7 +29,7 @@ router.get('/', async (req, res) => {
         }
         // if error happened form user , show the errors for him/her.
         else {
-            res.render('index', {
+            res.status(400).render('index', {
                 errors: errorList,
             });
         }

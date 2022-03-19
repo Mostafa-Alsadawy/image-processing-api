@@ -6,7 +6,7 @@ const app = express();
 const port = 3000;
 
 app.listen(port, () => {
-    console.log(`server is running on port${port}`);
+    console.log(`server is running on port ${port}`);
 });
 // set pug template engine for views and it is by default set to views folder.
 app.set('view engine', 'pug');
@@ -14,14 +14,14 @@ app.set('view engine', 'pug');
 app.use(express.static(path.join(__dirname, '../', 'public')));
 
 // the main page
-app.get('/', (req, res) => {
+app.get('/', (_req, res) => {
     res.status(200).render('index');
 });
 // the api page , using router .
 app.use('/api', router);
 
 // handels not found urls.
-app.use((req, res) => {
+app.use((_req, res) => {
     res.status(404).render('404', { massage: "Sorry we can't find this page" });
 });
 
