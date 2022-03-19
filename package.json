@@ -1,7 +1,7 @@
 {
-    "name": "2",
+    "name": "image_processing_api",
     "version": "1.0.0",
-    "description": "",
+    "description": "this is project to resize images based on qureys in API, it made for Udacty as part of graduation process.",
     "main": "index.js",
     "scripts": {
         "build": "npx tsc",
