@@ -5,9 +5,9 @@ const resizeAndSaveToFile = async (image: ImageModel) => {
     try {
         await sharp(image.imagePath)
             .resize(image.toWidth, image.toHeight)
-            .toFile(image.destenationPath);
+            .toFile(image.pathInDestFolder);
     } catch (err) {
-        console.log(err);
+        throw new Error(err as string);
     }
 };
 

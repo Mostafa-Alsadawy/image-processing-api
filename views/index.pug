@@ -1,0 +1,28 @@
+extends layout.pug 
+
+block title 
+    title Welcome page
+    
+block content 
+    h1 Welcom to Image Processing API
+    .container
+        if errors
+            ul.error
+                each err in errors
+                    li #{err}
+        form(action="./api",method="get")
+            label Choose your image
+            select(name="fileName")
+                option encenadaport
+                option fjord
+                option icelandwaterfall
+                option palmtunnel
+                option santamonica
+
+            label Write width
+            input(type="number",name="width",required="required")
+
+            label Wtite height
+            input(type="number", name="height",required="required")
+
+            button(type="submit") Submit

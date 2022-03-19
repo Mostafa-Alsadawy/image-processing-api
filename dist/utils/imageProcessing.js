@@ -12,16 +12,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.resizeAndSaveToFile = void 0;
 const sharp_1 = __importDefault(require("sharp"));
 const resizeAndSaveToFile = (image) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         yield (0, sharp_1.default)(image.imagePath)
             .resize(image.toWidth, image.toHeight)
-            .toFile(image.destenationPath);
+            .toFile(image.pathInDestFolder);
     }
     catch (err) {
-        console.log(err);
+        throw new Error(err);
     }
 });
-exports.resizeAndSaveToFile = resizeAndSaveToFile;
+exports.default = resizeAndSaveToFile;
