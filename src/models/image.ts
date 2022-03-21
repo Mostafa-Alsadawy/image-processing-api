@@ -14,7 +14,7 @@ class ImageModel {
     static EXCUTED = false; // this for not call all images more than once
     static images: string[];
 
-    get imagePath() {
+    get imagePath(): string {
         return path.join(
             __dirname,
             '../../',
@@ -23,11 +23,11 @@ class ImageModel {
         );
     }
 
-    static get ImageSrcFolderPath() {
+    static get ImageSrcFolderPath(): string {
         return path.join(__dirname, '../../', ImageModel.IMAGES_SOURCE_FOLDER);
     }
 
-    static get ImageDestenationFolderPath() {
+    static get ImageDestenationFolderPath(): string {
         return path.join(
             __dirname,
             '../../',
@@ -36,18 +36,18 @@ class ImageModel {
     }
     // this retuen all images in src floder in array and fetch them
     // only once.
-    static get allImages() {
+    static get allImages(): string[] {
         if (!ImageModel.EXCUTED) {
             try {
                 this.images = fs.readdirSync(ImageModel.ImageSrcFolderPath);
-            } catch (e) {
+            } catch (e: unknown) {
                 throw new Error(e as string);
             }
         }
         return this.images;
     }
 
-    get isImageInDest() {
+    get isImageInDest(): boolean {
         let result = false;
         try {
             result = fs
@@ -61,7 +61,7 @@ class ImageModel {
         return result;
     }
 
-    get pathInDestFolder() {
+    get pathInDestFolder(): string {
         return path.join(
             ImageModel.ImageDestenationFolderPath,
             this.name +

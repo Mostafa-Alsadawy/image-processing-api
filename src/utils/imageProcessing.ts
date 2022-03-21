@@ -1,7 +1,7 @@
 import sharp from 'sharp';
 import ImageModel from '../models/image';
 
-const resizeAndSaveToFile = async (image: ImageModel) => {
+const resizeAndSaveToFile = async (image: ImageModel):Promise<void> => {
     try {
         await sharp(image.imagePath)
             .resize(image.toWidth, image.toHeight)

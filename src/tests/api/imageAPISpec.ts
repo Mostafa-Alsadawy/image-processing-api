@@ -6,27 +6,27 @@ import ImageModel from '../../models/image';
 import sharp from 'sharp';
 
 const request = supertest(app);
-describe('Test the api image processing', () => {
+describe('Test the api image processing', ():void => {
     // test data
     const image = new ImageModel('fjord', 300, 300);
     // this to checkif processed image is already exits.
     let isImageExists = false;
-    beforeAll(() => {
+    beforeAll(():void => {
         if (image.isImageInDest) {
             isImageExists = true;
         }
     });
-    it('test api with bad request ', async () => {
+    it('test api with bad request ', async ():Promise<void> => {
         const response = await request.get(`/api`);
         expect(response.status).toBe(400);
     });
-    it('check the status code for image processing via api', async () => {
+    it('check the status code for image processing via api', async ():Promise<void> => {
         const response = await request.get(
             `/api?fileName=${image.name}&width=${image.toWidth}&height=${image.toHeight}`
         );
         expect(response.status).toBe(200);
     });
-    it('check image processing via api', async () => {
+    it('check image processing via api', async ():Promise<void> => {
         const response = await request.get(
             `/api?fileName=${image.name}&width=${image.toWidth}&height=${image.toHeight}`
         );
@@ -35,7 +35,7 @@ describe('Test the api image processing', () => {
             imgInfo.width == image.toWidth && imgInfo.height == image.toHeight
         ).toBeTruthy();
     });
-    afterAll(() => {
+    afterAll(():void => {
         if (!isImageExists) {
             fs.unlinkSync(
                 path.join(

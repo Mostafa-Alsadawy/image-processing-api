@@ -3,12 +3,12 @@ import supertest from 'supertest';
 import app from '../index';
 
 const request = supertest(app);
-describe('Test  endpoint responses', () => {
-    it('gets index endpoint', async () => {
+describe('Test  endpoint responses', ():void => {
+    it('gets index endpoint', async ():Promise<void> => {
         const response = await request.get('/');
         expect(response.status).toBe(200);
     });
-    it('gets not exists route endpoint', async () => {
+    it('gets not exists route endpoint', async ():Promise<void> => {
         const response = await request.get('/randome');
         expect(response.status).toBe(404);
     });

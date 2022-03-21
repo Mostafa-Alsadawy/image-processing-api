@@ -1,7 +1,7 @@
 import ImageModel from '../models/image';
 // this function responsible for finding user errors and return array of error massages.
 
-const errors = (image: ImageModel) => {
+const errors = (image: ImageModel): string[] => {
     const errorList: string[] = [];
     const images = ImageModel.allImages;
     const isImageExists: boolean = images.includes(
